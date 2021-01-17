@@ -1,0 +1,341 @@
+% Kelci Mensah
+% 3194
+% Section C2
+% Math 250 MATLAB Lab Assignment #2
+format compact
+
+% Question (1)
+rand('seed', 3194)
+
+% Question 1(a)
+A = rmat(3,5), rank(A(:, 1:3))
+A =
+     2     5     4     4     8
+     7     1     4     7     7
+     1     2     3     5     5
+ans =
+     3
+b = rvect(3), R = rref([A, b])
+b =
+     3
+     6
+     6
+R =
+    1.0000         0         0   -0.2558    0.2093   -0.9070
+         0    1.0000         0   -1.0698    0.5116   -1.8837
+         0         0    1.0000    2.4651    1.2558    3.5581
+S = R(:, 1:5)
+S =
+    1.0000         0         0   -0.2558    0.2093
+         0    1.0000         0   -1.0698    0.5116
+         0         0    1.0000    2.4651    1.2558
+rref(A)
+ans =
+    1.0000         0         0   -0.2558    0.2093
+         0    1.0000         0   -1.0698    0.5116
+         0         0    1.0000    2.4651    1.2558
+
+% Question 1(a).i
+% The first three columns of S are the pivot columns
+
+% Question 1(a).ii
+% Rank is number of non-zero rows, so rank of R = 3, and the rank of A = 3
+
+% Question 1(a).iii
+% The nullity is calculated by total number of columns subtracted by rank, so nullity of A = 2
+% The free variables of A are x_4 and x_5
+
+% Question 1(a).iv
+% The equation Ax = b has a solution because the system is consistent and there are no zero rows
+
+% Question 2(b)
+c = R(:, 6)
+c =
+   -0.9070
+   -1.8837
+    3.5581
+x = [c; 0; 0]
+x =
+   -0.9070
+   -1.8837
+    3.5581
+         0
+         0
+
+% Question 1(b).i
+A*x-b
+ans =
+   1.0e-15 *
+         0
+         0
+   -0.8882
+S*x - c
+ans =
+     0
+     0
+     0
+
+% Question 1(b).ii
+% Those equations are true because they are the rearranged forms of A*x = b, where b is a solution for the augmented matrix A*x.
+% The same can be said for S*x-c.
+
+% Question 1(c)
+u = [-S(:,4); 1; 0], v = [-S(:,5); 0; 1]
+u =
+    0.2558
+    1.0698
+   -2.4651
+    1.0000
+         0
+v =
+   -0.2093
+   -0.5116
+   -1.2558
+         0
+    1.0000
+
+% Question 1(c).i
+% This is because u and v are both the vectors which are used to display the solutions
+% to the equation
+
+S*u
+ans =
+     0
+     0
+     0
+A*u
+ans =
+     0
+     0
+     0
+S*v
+ans =
+     0
+     0
+     0
+A*v
+ans =
+     0
+     0
+     0
+s = rand(1), t = rand(1), y = s*u + t*v
+s =
+    0.7724
+t =
+    0.4657
+y =
+    0.1001
+    0.5880
+   -2.4888
+    0.7724
+    0.4657
+
+% Question 1(c).ii
+% Both the commutative and associative properties of matrix-vector algebra ensure that
+% Ay = 0 is possible and can be solved
+A*y
+ans =
+   1.0e-14 *
+    0.0888
+    0.1332
+    0.0444
+
+% Question 1(d)
+z = x + y
+z =
+   -0.8069
+   -1.2957
+    1.0693
+    0.7724
+    0.4657
+% Commutative and associative properties imply that Az = b.
+A*z - b
+ans =
+   1.0e-14 *
+    0.0888
+    0.1776
+    0.1776
+
+% Question (2)
+u1 = rvect(3), u2 = rvect(3), u3 = rvect(3), u4 = rvect(3)
+u1 =
+     7
+     4
+     0
+u2 =
+     3
+     1
+     3
+u3 =
+     5
+     7
+     3
+u4 =
+     3
+     8
+     3
+A = [u1, u2, u3], rref(A)
+A =
+     7     3     5
+     4     1     7
+     0     3     3
+ans =
+     1     0     0
+     0     1     0
+     0     0     1
+
+% Question 2(a).i
+% Ax=0 has 0 free variables
+
+% Question 2(a).ii
+% The set S is linearly independent because no combination of the other vectors will generate another
+
+% Question 2(b)
+B = [u1 u2 u3 u4], rref(B)
+B =
+     7     3     5     3
+     4     1     7     8
+     0     3     3     3
+ans =
+    1.0000         0         0   -0.4118
+         0    1.0000         0   -0.4412
+         0         0    1.0000    1.4412
+% Question 2(b).i
+% The equation Bx = 0 has one free variable
+
+% Question 2(b).ii
+% The set is linearly independent
+
+% Question 2(c)
+v = rand(1)*u1 + rand(1)*u2
+v =
+    2.6558
+    1.1834
+    1.4036
+% Question 2(c).i
+% The set U is not linearly independent because there is a scalar which can create an instance of the other column vectors
+U = [u1, u2, v]
+U =
+    7.0000    3.0000    2.6558
+    4.0000    1.0000    1.1834
+         0    3.0000    1.4036
+rref(u)
+ans =
+     1
+     0
+     0
+     0
+     0
+rref(U)
+ans =
+    1.0000         0    0.1789
+         0    1.0000    0.4679
+         0         0         0
+
+% Question (3)
+A = rmat(2,3), B = rmat(3, 4), C = rmat(4,3), v = rvect(4)
+A =
+     4     6     3
+     1     7     6
+B =
+     2     6     4     6
+     8     2     2     8
+     0     3     2     2
+C =
+     2     8     3
+     2     7     1
+     5     2     2
+     8     1     3
+v =
+     7
+     2
+     5
+     1
+
+% Question 3(a)
+u = B*v, A*u, D = A*B, D*v
+u =
+    52
+    78
+    18
+ans =
+   730
+   706
+D =
+    56    45    34    78
+    58    38    30    74
+ans =
+   730
+   706
+p = (A*B)*C
+p =
+   996   909   515
+   934   864   494
+o = A*(B*C)
+o =
+   996   909   515
+   934   864   494
+
+% Question 3(b)
+A = [0 1; 0 0], B = [0 0; 1 0], C = [0 1; 1 0]
+A =
+     0     1
+     0     0
+B =
+     0     0
+     1     0
+C =
+     0     1
+     1     0
+
+% Question 3(b).i
+% AB does not equal BA. The second equation is also false
+
+% Question 3(b).ii
+A*A
+ans =
+     0     0
+     0     0
+% If A were a number, A*A would tell you the value of A multiplied by itself. This is not the case for matrix multiplication, to which the result returned a 0 matrix instead.
+
+% Question 3(b).iii
+A*C
+ans =
+     1     0
+     0     0
+A*B
+ans =
+     1     0
+     0     0
+% If these values were numbers, we would be able to identify which numbers multiplied together produced which quantities. This is not the case for matrix multiplication
+
+% Question (4)
+A = [0 0 0 1 0 1; 1 0 1 1 0 0; 0 1 0 1 0 0; 1 0 1 0 0 0; 1 1 1 0 0 1; 0 0 1 1 0 0]
+A =
+     0     0     0     1     0     1
+     1     0     1     1     0     0
+     0     1     0     1     0     0
+     1     0     1     0     0     0
+     1     1     1     0     0     1
+     0     0     1     1     0     0
+% Question 4(i)
+% (Sketch will be submitted separately)
+
+% Question 4(ii)
+% By the graph, there are no arrows pointing to 5 at all, which indicates that no one can contact person 5.
+% Using the matrix, the 5th column does not contain any 1's, which indicates that they can not be reached by any person (i) for that row (i).
+
+% Question 4(iii)
+% Person 1 can contact person 4 directly (1 stage), by contacting 2, 3, or 6 first to contact person 4 (2 stages), and can reach 4 in 3 or 4 stages by contacting any of the other numbers (j) in any desired sequence.
+
+% Question 4(iv)
+% In this instance, person 3 will stand as row 3 in the A matrix, and using the equation give, we can calculate that 3 will have 12 different ways to contact person 4. We can check by MATLAB below:
+B = A + (A*A) + (A*A*A) + (A*A*A*A)
+B =
+     7     3     9    10     0     3
+    10     6    12    16     0     5
+     9     4    11    12     0     3
+     6     5     7    11     0     4
+    14    10    17    23     0     8
+     7     4     9    11     0     3
+diary off
